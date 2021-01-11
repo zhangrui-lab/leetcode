@@ -12,6 +12,8 @@
  * 2. 利用符号表：对每位中的所有可能取值进行制表，查表返回
  */
 
+#include <string>
+
 std::string intToRoman1(int num) {
     std::vector<std::string> sym = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
     std::vector<int> nums = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
