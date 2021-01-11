@@ -20,10 +20,10 @@ private:
         empty = 0, num = 1, sym = 2, other = 3
     };
     Status trans[4][4] = {
-            {end, inNum, accept, end},  // start
-            {end, end,   end,    end},  // end
-            {end, inNum, end,    end},  // accept
-            {end, inNum, end,    end}   // inNum
+            {start, inNum, accept, end},// start
+            {end,   end,   end,    end},  // end
+            {end,   inNum, end,    end},  // accept
+            {end,   inNum, end,    end}   // inNum
     };
 
     Status status = start;
