@@ -8,7 +8,7 @@
 #include <string>
 
 /*
- * 基于有限状态的自动机进行处理
+ * 字符串转化为整数；基于有限状态的自动机进行处理
  */
 
 class AutoMachine {
