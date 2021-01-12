@@ -16,6 +16,8 @@
  *  dfs搜索 + 回溯 + 剪枝
  *  剪枝策略
  *      当前括号表达式前缀子串已不合法。
+ *
+ * 按括号序列的长度递归
  */
 
 #include <vector>
@@ -48,27 +50,56 @@ std::vector<std::string> generateParenthesis1(int n) {
     return parenthesis;
 }
 
-void generateParenthesis2(std::string &par, int len, std::vector<std::string> &parenthesis, bool (*validator)(std::string)) {
-    // 验证是否为合法括号表达式
-    if (len == 0) {
-        if (validator(par)) {
-            parenthesis.push_back(par);
-        }
+void backtrack(std::vector<std::string> &parenthesis, std::string &par, int l, int r, const int &n) {
+    if (l + r == n*2) {
+        parenthesis.push_back(par);
         return;
     }
-    par.push_back('(');
-    generateParenthesis1(par, len - 1, parenthesis);
-    par.pop_back();
-    par.push_back(')');
-    generateParenthesis1(par, len - 1, parenthesis);
-    par.pop_back();
+    if (l < n) {
+        par.push_back('(');
+        backtrack(parenthesis, par, l+1, r, n);
+        par.pop_back();
+    }
+    if (r < l) {
+        par.push_back(')');
+        backtrack(parenthesis, par, l, r+1, n);
+        par.pop_back();
+    }
 }
 
-std::vector<std::string> generateParenthesis1(int n) {
-    std::string str;
+std::vector<std::string> generateParenthesis2(int n) {
+    std::string par;
     std::vector<std::string> parenthesis;
-    generateParenthesis1(str, 2 * n, parenthesis);
+    backtrack(parenthesis, par, 0, 0, n);
     return parenthesis;
+}
+
+std::vector<std::string> generate(int n, std::map<int, std::vector<std::string>> &cache) {
+    // 缓存命中和基础情况
+    if (cache.find(n) != cache.cend()) {
+        return cache[n];
+    } else if (n == 0) {
+        cache[0] = std::vector<std::string>(1, "");
+    } else {
+        std::vector<std::string> tmp;
+        for (int i = 0; i != n; ++i) {
+            auto ls = generate(i, cache);
+            auto rs = generate(n - i - 1, cache);
+            for (auto l:ls) {
+                for (auto r:rs) {
+                    tmp.push_back("(" + l + ")" + r);
+                }
+            }
+        }
+        cache[n] = tmp;
+    }
+    return cache[n];
+}
+
+std::vector<std::string> generateParenthesis3(int n) {
+    std::string par;
+    std::map<int, std::vector<std::string>> cache;
+    return generate(n, cache);
 }
 
 #endif //ALGORITHM_GENERATEPARENTHESES_H
