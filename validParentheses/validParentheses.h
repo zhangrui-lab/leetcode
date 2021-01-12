@@ -37,6 +37,4 @@ bool validParentheses1(std::string s) {
     return parentheses.empty();
 }
 
-
-
 #endif //ALGORITHMS_VALIDPARENTHESES_H
