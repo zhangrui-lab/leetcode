@@ -6,12 +6,8 @@
 #define ALGORITHMS_ADDTWONUMBERS_H
 
 #include <stack>
+#include "../common.h"
 
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x, ListNode *n = nullptr) : val(x), next(n) {}
-};
 
 // 逆序
 ListNode *addTwoNumbers1(ListNode *l1, ListNode *l2) {

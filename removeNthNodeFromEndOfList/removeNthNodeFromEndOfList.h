@@ -15,13 +15,8 @@
 
 #include <cassert>
 #include <stack>
+#include "../common.h"
 
-struct ListNode {
-    int val;
-    ListNode *next;
-
-    ListNode(int x = 0, ListNode *next = nullptr) : val(x), next(next) {}
-};
 
 ListNode *removeNthFromEnd1(ListNode *head, int n) {
     int nodeNum = 0;
