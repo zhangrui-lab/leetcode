@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "reverseKGroup/reverseKGroup.h"
 #include "removeDuplicatesFromSortedArray/removeDuplicatesFromSortedArray.h"
 #include "removeElement/removeElement.h"
@@ -8,8 +9,15 @@
 using namespace std;
 
 int main() {
-
-    cout << divide(-2147483648, -1);
+//    string   s = "word good good good best word";
+// "barfoothefoobarman"
+//["foo","bar"]
+    string   s = "barfoothefoobarman";
+    vector<string> words = {"foo","bar"};
+    auto p = findSubstring1(s, words);
+    for (int i = 0; i < p.size(); ++i) {
+        cout << p[i] << " ";
+    }
 
 
 //    string haystack = "a";
