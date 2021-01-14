@@ -5,19 +5,28 @@
 #include "removeElement/removeElement.h"
 #include "divideTwoIntegers/divideTwoIntegers.h"
 #include "substringWithConcatenationOfAllWords/substringWithConcatenationOfAllWords.h"
+#include "nextPermutation/nextPermutation.h"
 
 using namespace std;
 
 int main() {
+
+    //nums = [1,2,3]3
+    //输出：[1,3,2]
+    vector<int> nums = {1,3,2};
+    nextPermutation2(nums);
+    for (int i = 0; i < nums.size(); ++i) {
+        cout << nums[i];
+    }
+
 //    string   s = "word good good good best word";
 // "barfoothefoobarman"
 //["foo","bar"]
-    string   s = "barfoothefoobarman";
-    vector<string> words = {"foo","bar"};
-    auto p = findSubstring1(s, words);
-    for (int i = 0; i < p.size(); ++i) {
-        cout << p[i] << " ";
-    }
+//    string   s = "barfoothefoobarman";
+//    vector<string> words = {"foo","bar"};
+//    auto p = findSubstring1(s, words);
+//    for (int i = 0; i < p.size(); ++i) {
+//        cout << p[i] << " ";
 
 
 //    string haystack = "a";
