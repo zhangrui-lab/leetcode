@@ -26,7 +26,7 @@ int main() {
             {'.','.','.','4','1','9','.','.','5'},
             {'.','.','.','.','8','.','.','7','9'}
     };
-    cout << isValidSudoku(sudoku);
+    cout << isValidSudoku1(sudoku);
 
 //    string s = "()(()";
 //    string s = "(())(";
