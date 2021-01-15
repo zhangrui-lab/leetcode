@@ -10,35 +10,48 @@
 #include "searchInRotatedSortedArray/searchInRotatedSortedArray.h"
 #include "searchForARange/searchForARange.h"
 #include "searchInsertPosition/searchInsertPosition.h"
+#include "isValidSudoku/isValidSudoku.h"
 
 using namespace std;
 
 int main() {
+    vector<vector<char>> sudoku = {
+            {'8','3','.','.','7','.','.','.','.'},
+            {'6','.','.','1','9','5','.','.','.'},
+            {'.','9','8','.','.','.','.','6','.'},
+            {'8','.','.','.','6','.','.','.','3'},
+            {'4','.','.','8','.','3','.','.','1'},
+            {'7','.','.','.','2','.','.','.','6'},
+            {'.','6','.','.','.','.','2','8','.'},
+            {'.','.','.','4','1','9','.','.','5'},
+            {'.','.','.','.','8','.','.','7','9'}
+    };
+    cout << isValidSudoku(sudoku);
 
 //    string s = "()(()";
 //    string s = "(())(";
 //                        |
 //    string s = ")(((((()())()()))()(()))(";
 //    string s = "((()";
-    std::vector<int> nums = {1};
-    auto resu = searchInsert(nums, 1);
-    cout << resu;
-    //nums = [1,2,3]3
-    //输出：[1,3,2]
+//    std::vector<int> nums = {1};
+//    auto resu = searchInsert(nums, 1);
+//    cout << resu;
+    //nums = {1,2,3}3
+    //输出：{1,3,2}
 //    vector<int> nums = {1,3,2};
 //    nextPermutation2(nums);
 //    for (int i = 0; i < nums.size(); ++i) {
-//        cout << nums[i];
+//        cout << nums{i};
 //    }
 
 //    string   s = "word good good good best word";
 // "barfoothefoobarman"
-//["foo","bar"]
+//{"foo","bar"}
 //    string   s = "barfoothefoobarman";
 //    vector<string> words = {"foo","bar"};
 //    auto p = findSubstring1(s, words);
 //    for (int i = 0; i < p.size(); ++i) {
-//        cout << p[i] << " ";
+//        cout << p{i} << " ";
 
 
 //    string haystack = "a";
@@ -49,7 +62,7 @@ int main() {
 //    vector<int> nums = {0,0,1,1,1,2,2,3,3,4};
 //    int n = removeElement1(nums, 0);
 //    for (int i = 0; i < n; ++i) {
-//        cout << nums[i] << " ";
+//        cout << nums{i} << " ";
 //    }
 
     //给你这个链表：1->2->3->4->5
