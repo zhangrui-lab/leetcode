@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-    vector<int> candidates = {3,4,-1,1,4,9,-5};
-    cout << firstMissingPositive1(candidates);
+    vector<int> candidates = {1,1};
+    cout << firstMissingPositive2(candidates);
 }
 

@@ -50,8 +50,9 @@ int firstMissingPositive2(std::vector<int> &nums) {
         nums[i] = nums[i] <= 0 ? n + 1 : nums[i];
     }
     for (int i = 0; i < n; ++i) {
-        if (std::abs(nums[i]) <= n) {
-            nums[std::abs(nums[i]) - 1] = -nums[std::abs(nums[i]) - 1];
+        int num = std::abs(nums[i]);
+        if (num <= n) {
+            nums[num - 1] = -std::abs(nums[num - 1]);
         }
     }
     for (int i = 0; i < n; ++i) {
