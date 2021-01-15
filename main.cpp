@@ -7,6 +7,7 @@
 #include "substringWithConcatenationOfAllWords/substringWithConcatenationOfAllWords.h"
 #include "nextPermutation/nextPermutation.h"
 #include "longestValidParentheses/longestValidParentheses.h"
+#include "searchInRotatedSortedArray/searchInRotatedSortedArray.h"
 
 using namespace std;
 
