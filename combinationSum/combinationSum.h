@@ -13,11 +13,13 @@
  */
 
 #include <vector>
+#include <unordered_set>
 
 
-// todo 存在重复元素，如何确定去重策略
-/*void combinationSum1(std::vector<int> &candidates, int target, std::vector<std::vector<int>> &resu, std::vector<int> curr) {
-    if (target == 0 && std::find(resu.cbegin(), resu.cend(), curr) == resu.cend()) {
+// todo dfs策略存在问题，无法去重
+/*
+void combinationSum1(std::vector<int> &candidates, int target, std::vector<std::vector<int>> &resu, std::vector<int> curr) {
+    if (target == 0) {
         resu.push_back(curr);
         return;
     }
