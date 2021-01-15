@@ -8,6 +8,7 @@
 #include "nextPermutation/nextPermutation.h"
 #include "longestValidParentheses/longestValidParentheses.h"
 #include "searchInRotatedSortedArray/searchInRotatedSortedArray.h"
+#include "searchForARange/searchForARange.h"
 
 using namespace std;
 
@@ -16,10 +17,13 @@ int main() {
 //    string s = "()(()";
 //    string s = "(())(";
 //                        |
-    string s = ")(((((()())()()))()(()))(";
+//    string s = ")(((((()())()()))()(()))(";
 //    string s = "((()";
-    cout << longestValidParentheses4(s);
-
+    std::vector<int> nums = {10};
+    auto resu = searchForARange(nums, 10);
+    for (int i = 0; i < resu.size(); ++i) {
+        printf("%d\n", resu[i]);
+    }
     //nums = [1,2,3]3
     //输出：[1,3,2]
 //    vector<int> nums = {1,3,2};
