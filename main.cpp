@@ -6,18 +6,26 @@
 #include "divideTwoIntegers/divideTwoIntegers.h"
 #include "substringWithConcatenationOfAllWords/substringWithConcatenationOfAllWords.h"
 #include "nextPermutation/nextPermutation.h"
+#include "longestValidParentheses/longestValidParentheses.h"
 
 using namespace std;
 
 int main() {
 
+//    string s = "()(()";
+//    string s = "(())(";
+//                        |
+    string s = ")(((((()())()()))()(()))(";
+//    string s = "((()";
+    cout << longestValidParentheses4(s);
+
     //nums = [1,2,3]3
     //输出：[1,3,2]
-    vector<int> nums = {1,3,2};
-    nextPermutation2(nums);
-    for (int i = 0; i < nums.size(); ++i) {
-        cout << nums[i];
-    }
+//    vector<int> nums = {1,3,2};
+//    nextPermutation2(nums);
+//    for (int i = 0; i < nums.size(); ++i) {
+//        cout << nums[i];
+//    }
 
 //    string   s = "word good good good best word";
 // "barfoothefoobarman"
