@@ -16,28 +16,25 @@
 #include <unordered_set>
 
 
-// todo dfs策略存在问题，无法去重
-/*
-void combinationSum1(std::vector<int> &candidates, int target, std::vector<std::vector<int>> &resu, std::vector<int> curr) {
+void combinationSum1(std::vector<int> &candidates, int target, int index, std::vector<std::vector<int>> &resu, std::vector<int> curr) {
     if (target == 0) {
         resu.push_back(curr);
         return;
     }
-    for (int i = 0; i < candidates.size(); ++i) {
+    for (int i = index; i < candidates.size(); ++i) {
         if (target - candidates[i] < 0)
             continue;
         curr.push_back(candidates[i]);
-        combinationSum1(candidates, target - candidates[i], resu, curr);
+        combinationSum1(candidates, target - candidates[i], i, resu, curr);
         curr.pop_back();
     }
 }
-
 std::vector<std::vector<int>> combinationSum1(std::vector<int> &candidates, int target) {
     std::vector<std::vector<int>> resu;
     std::vector<int> curr;
-    combinationSum1(candidates, target, resu, curr);
+    combinationSum1(candidates, target, 0, resu, curr);
     return resu;
-}*/
+}
 
 void combinationSum(std::vector<int>& candidates, int target, std::vector<std::vector<int>>& ans, std::vector<int>& combine, int idx) {
     if (idx == candidates.size()) {
@@ -56,7 +53,6 @@ void combinationSum(std::vector<int>& candidates, int target, std::vector<std::v
         combine.pop_back();
     }
 }
-
 std::vector<std::vector<int>> combinationSum(std::vector<int>& candidates, int target) {
     std::vector<std::vector<int>> ans;
     std::vector<int> combine;

@@ -2,16 +2,12 @@
 #include <vector>
 #include "countAndSay/countAndSay.h"
 #include "combinationSum/combinationSum.h"
+#include "combinationSum2/combinationSum2.h"
+#include "firstMissingPositive/firstMissingPositive.h"
 using namespace std;
 
 int main() {
-    vector<int> candidates = {2,3,6,7};
-    int target = 7;
-    auto resu = combinationSum1(candidates, target);
-    for (int i = 0; i < resu.size(); ++i) {
-        for (int j = 0; j < resu[i].size(); ++j) {
-            printf("%d ", resu[i][j]);
-        }
-        printf("\n");
-    }
+    vector<int> candidates = {3,4,-1,1,4,9,-5};
+    cout << firstMissingPositive1(candidates);
 }
+
