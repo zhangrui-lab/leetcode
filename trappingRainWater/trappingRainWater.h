@@ -13,10 +13,8 @@
  *  直接按问题描述进行。对于数组中的每个元素，我们找出下雨后水能达到的最高位置，等于两边最大高度的较小值减去当前高度的值。
  *
  * 双指针法：
- * 指针left从左往右，right从右往左。lMax指向当前左侧最高柱子，rMax指向当前右侧最高柱子。
- *  lMax,rMax均初始化为第一个逆序的柱子。
- *  当left找到大于lMax的柱子时，更新lMax, 更新oldLMax～lMax之间可容的水量。
- *  当right找到大于rMax的柱子时，更新rMax, 更新oldRMax～rMax之间可容的水量。
+ *  情况1: 当发现的lMax<=rMax时，left~right中的雨水容量由当前位置高度和lMax决定。我们移动left指针，直至新发现的lMax>rMax.
+ *  情况2: 当发现的lMax>rMax时，left~right中的雨水容量由当前位置高度和rMax决定。我们移动right指针，直至新发现的rMax>lMax.
  * height = [0,1,0,2,1,0,1,3,2,1,2,1]
  * 0,1,0,2,1,0,1,3,2,1,2,1
  *   |   |       |     |
@@ -24,8 +22,10 @@
  *       |       |
  *      lMax    rMax
  *
- *
+ * stack
+ *  使用stack界定当前stack顶元素的左右边界。
  */
+
 
 #include <vector>
 
@@ -62,5 +62,66 @@ int trappingRainWater2(std::vector<int> &height) {
     return container;
 }
 
+int trappingRainWater3(std::vector<int> &height) {
+    int container = 0;
+    std::stack<int> stk;
+    for (int i = 0; i < height.size(); ++i) {
+        while (!stk.empty() && height[i] >= height[stk.top()]) {
+            int top = stk.top();
+            stk.pop();
+            if (stk.empty()) {
+                break;
+            }
+            int diff = std::min(height[i], height[stk.top()]) - height[top];
+            int distance = i - stk.top() - 1;
+            container += diff * distance;
+        }
+        stk.push(i);
+    }
+    return container;
+}
+
+// 双指针策略
+int trappingRainWater4(std::vector<int> &height) {
+    if (height.empty())
+        return 0;
+    int container = 0, left = 1, right = height.size() - 2;
+    int lMax = height[0], rMax = height[height.size() - 1];
+    while (left <= right) {
+        while (left <= right && lMax <= rMax) {
+            if (height[left] >= lMax)
+                lMax = height[left];
+            else
+                container += lMax - height[left];
+            //printf("lMax:%d, rMax:%d, left:%d, +%d=%d\n", lMax, rMax, left, lMax - height[left], container);
+            left++;
+        }
+        while (left <= right && lMax > rMax) {
+            if (height[right] >= rMax)
+                rMax = height[right];
+            else
+                container += rMax - height[right];
+            //printf("lMax:%d, rMax:%d, right:%d, +%d=%d\n", lMax, rMax, right, rMax - height[right], container);
+            right--;
+        }
+    }
+    return container;
+}
+
+int trappingRainWater5(std::vector<int> &height) {
+    int left = 0, right = height.size() - 1;
+    int ans = 0;
+    int left_max = 0, right_max = 0;
+    while (left < right) {
+        if (height[left] < height[right]) {
+            height[left] >= left_max ? (left_max = height[left]) : ans += (left_max - height[left]);
+            ++left;
+        } else {
+            height[right] >= right_max ? (right_max = height[right]) : ans += (right_max - height[right]);
+            --right;
+        }
+    }
+    return ans;
+}
 
 #endif //ALGORITHM_TRAPPINGRAINWATER_H
