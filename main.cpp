@@ -1,19 +1,16 @@
 #include <iostream>
 #include <vector>
-#include "countAndSay/countAndSay.h"
-#include "combinationSum/combinationSum.h"
-#include "combinationSum2/combinationSum2.h"
-#include "firstMissingPositive/firstMissingPositive.h"
-#include "trappingRainWater/trappingRainWater.h"
-#include "permutations/permutations.h"
-#include "permuteUnique/permuteUnique.h"
-#include "rotateImage/rotateImage.h"
-#include "groupAnagrams/groupAnagrams.h"
-#include "myPow/myPow.h"
+
+#include "solveNQueens/solveNQueens.h"
 
 using namespace std;
 
 int main() {
-    cout << myPow2(2, -4) << endl;
-
+    auto resu = solveNQueens2(4);
+    for (int i = 0; i < resu.size(); ++i) {
+        for (int j = 0; j < resu[i].size(); ++j) {
+            printf("%s ", resu[i][j].c_str());
+        }
+        printf("\n");
+    }
 }
