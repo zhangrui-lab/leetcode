@@ -7,14 +7,21 @@
 #include "trappingRainWater/trappingRainWater.h"
 #include "permutations/permutations.h"
 #include "permuteUnique/permuteUnique.h"
+#include "rotateImage/rotateImage.h"
+
 using namespace std;
 
 int main() {
-    vector<int> candidates = {2,2,1,1};
-    auto resu = permuteUnique2(candidates);
-    for (int i = 0; i < resu.size(); ++i) {
-        for (int j = 0; j < resu[i].size(); ++j) {
-            printf("%d ", resu[i][j]);
+    vector<vector<int>> matrix = {
+                    { 5, 1, 9,11},
+                    { 2, 4, 8,10},
+                    {13, 3, 6, 7},
+                    {15,14,12,16}
+            };
+    rotateImage2(matrix);
+    for (int i = 0; i < matrix.size(); ++i) {
+        for (int j = 0; j < matrix[i].size(); ++j) {
+            printf("%d ", matrix[i][j]);
         }
         printf("\n");
     }
