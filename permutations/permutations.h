@@ -56,7 +56,7 @@ std::vector<std::vector<int>> permute2(std::vector<int> &nums) {
     return arrangements;
 }
 
-void backtrack(std::vector<std::vector<int>> &res, std::vector<int> &output, int first, int len) {
+void permute3Backtrack(std::vector<std::vector<int>> &res, std::vector<int> &output, int first, int len) {
     // 所有数都填完了
     if (first == len) {
         res.emplace_back(output);
@@ -66,14 +66,14 @@ void backtrack(std::vector<std::vector<int>> &res, std::vector<int> &output, int
         // 动态维护数组
         std::swap(output[i], output[first]);
         // 继续递归填下一个数
-        backtrack(res, output, first + 1, len);
+        permute3Backtrack(res, output, first + 1, len);
         // 撤销操作
         std::swap(output[i], output[first]);
     }
 }
 std::vector<std::vector<int>> permute3(std::vector<int> &nums) {
     std::vector<std::vector<int> > res;
-    backtrack(res, nums, 0, (int) nums.size());
+    permute3Backtrack(res, nums, 0, (int) nums.size());
     return res;
 }
 
