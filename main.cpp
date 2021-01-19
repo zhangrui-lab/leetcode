@@ -15,7 +15,7 @@ int main() {
             {8,10},
             {15,18},
     };
-    auto resu =  mergeIntervals1(nums);
+    auto resu =  mergeIntervals3(nums);
     for (int i = 0; i < resu.size(); ++i) {
         for (int j = 0; j < resu[i].size(); ++j) {
             printf("%d ", resu[i][j]);
