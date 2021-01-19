@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "spiralMatrix/spiralMatrix.h"
+#include "canJump/canJump.h"
 
 using namespace std;
 
