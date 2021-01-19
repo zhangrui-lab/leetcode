@@ -5,6 +5,7 @@
 #include "canJump/canJump.h"
 #include "mergeIntervals/mergeIntervals.h"
 #include "insertInterval/insertInterval.h"
+#include "lengthOfLastWord/lengthOfLastWord.h"
 
 using namespace std;
 
