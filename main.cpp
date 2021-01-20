@@ -7,12 +7,13 @@
 #include "addBinary/addBinary.h"
 #include "fullJustify/fullJustify.h"
 #include "mySqrt/mySqrt.h"
+#include "climbStairs/climbStairs.h"
 
 using namespace std;
 
 int main() {
 
-    cout << mySqrt(80);
+    cout << climbStairs2(20);
 
 //    vector<string> strs = {"This", "is", "an", "example", "of", "text", "justification."};
 //    int num = 25;
