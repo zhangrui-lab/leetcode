@@ -32,5 +32,5 @@
 *.app
 .idea/
 
-./main.cpp
+/main.cpp
 /cmake-build-debug
