@@ -6,16 +6,20 @@
 #include "plusOne/plusOne.h"
 #include "addBinary/addBinary.h"
 #include "fullJustify/fullJustify.h"
+#include "mySqrt/mySqrt.h"
 
 using namespace std;
 
 int main() {
-    vector<string> strs = {"This", "is", "an", "example", "of", "text", "justification."};
-    int num = 25;
-    auto ans = fullJustify(strs, num);
-    for (int i = 0; i < ans.size(); ++i) {
-        printf("%s|", ans[i].c_str());
-    }
+
+    cout << mySqrt(80);
+
+//    vector<string> strs = {"This", "is", "an", "example", "of", "text", "justification."};
+//    int num = 25;
+//    auto ans = fullJustify(strs, num);
+//    for (int i = 0; i < ans.size(); ++i) {
+//        printf("%s|", ans[i].c_str());
+//    }
 
 //    vector<vector<int>> nums = {
 //            {1,3,1},{1,5,1},{4,2,1}
