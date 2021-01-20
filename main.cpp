@@ -1,12 +1,22 @@
 #include <iostream>
 #include <vector>
 #include "uniquePaths/uniquePaths.h"
+#include "uniquePathsWithObstacles/uniquePathsWithObstacles.h"
 
 using namespace std;
 
 int main() {
+    /*
+     * 0 0
+     * 1 1
+     * 0 0
+     */
     //6906900
-    cout << uniquePaths3(10, 20);
+    vector<vector<int>> nums = {
+            {0, 0},
+            {0, 1}
+    };
+    cout << uniquePathsWithObstacles2(nums);
 
 
 //    ListNode* node = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
@@ -19,8 +29,8 @@ int main() {
 
 //    auto resu =  generateMatrix(3);
 //    for (int i = 0; i < resu.size(); ++i) {
-//        for (int j = 0; j < resu[i].size(); ++j) {
-//            printf("%d ", resu[i][j]);
+//        for (int j = 0; j < resu{i}.size(); ++j) {
+//            printf("%d ", resu{i}{j});
 //        }
 //        printf("\n");
 //    }
