@@ -3,20 +3,16 @@
 #include "uniquePaths/uniquePaths.h"
 #include "uniquePathsWithObstacles/uniquePathsWithObstacles.h"
 #include "minPathSum/minPathSum.h"
+#include "plusOne/plusOne.h"
 
 using namespace std;
 
 int main() {
-    /*
-     * 0 0
-     * 1 1
-     * 0 0
-     */
-    //6906900
-    vector<vector<int>> nums = {
-            {1,3,1},{1,5,1},{4,2,1}
-    };
-    cout << minPathSum(nums);
+
+//    vector<vector<int>> nums = {
+//            {1,3,1},{1,5,1},{4,2,1}
+//    };
+//    cout << minPathSum(nums);
 
 
 //    ListNode* node = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5)))));
