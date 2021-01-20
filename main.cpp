@@ -5,12 +5,17 @@
 #include "minPathSum/minPathSum.h"
 #include "plusOne/plusOne.h"
 #include "addBinary/addBinary.h"
+#include "fullJustify/fullJustify.h"
 
 using namespace std;
 
 int main() {
-
-    cout << addBinary("1011", "1010");
+    vector<string> strs = {"This", "is", "an", "example", "of", "text", "justification."};
+    int num = 25;
+    auto ans = fullJustify(strs, num);
+    for (int i = 0; i < ans.size(); ++i) {
+        printf("%s|", ans[i].c_str());
+    }
 
 //    vector<vector<int>> nums = {
 //            {1,3,1},{1,5,1},{4,2,1}
