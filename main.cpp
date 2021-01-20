@@ -4,10 +4,13 @@
 #include "uniquePathsWithObstacles/uniquePathsWithObstacles.h"
 #include "minPathSum/minPathSum.h"
 #include "plusOne/plusOne.h"
+#include "addBinary/addBinary.h"
 
 using namespace std;
 
 int main() {
+
+    cout << addBinary("1011", "1010");
 
 //    vector<vector<int>> nums = {
 //            {1,3,1},{1,5,1},{4,2,1}
