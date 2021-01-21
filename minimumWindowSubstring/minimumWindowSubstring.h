@@ -21,7 +21,7 @@
 #include <string>
 #include <unordered_map>
 
-std::string minimumWindowSubstring(std::string s, std::string t) {
+std::string minimumWindowSubstring1(std::string s, std::string t) {
     if (s.empty() || t.empty())
         return "";
     std::unordered_map<char, int> sm, tm;
@@ -30,25 +30,20 @@ std::string minimumWindowSubstring(std::string s, std::string t) {
     int i = 0, j = i, pos = -1, min = INT_MAX;
     auto valid = [&]() {
         for (auto iter = tm.cbegin(); iter != tm.cend(); iter++)
-            if (sm.find(iter->first) == sm.cend() || sm[iter->first] < iter->second)
+            if (sm[iter->first] < iter->second)
                 return false;
         return true;
     };
     for (; j < s.size(); ++j) {
-        if (tm.find(s[j]) != tm.cend()) {
+        if (tm.find(s[j]) != tm.cend())
             sm[s[j]]++;
-            printf("discovered char:%c=%d\n", s[j], sm[s[j]]);
-        }
         while (valid()) {
             if (min > j - i + 1) {
                 min = j - i + 1;
                 pos = i;
-                printf("update min len, pos:%d, min:%d\n", pos, min);
             }
-            if (tm.find(s[i]) != tm.cend()) {
+            if (tm.find(s[i]) != tm.cend())
                 sm[s[i]] = std::max(0, sm[s[i]] - 1);
-                printf("unset char:%c=%d\n", s[i], sm[s[i]]);
-            }
             i++;
         }
     }
