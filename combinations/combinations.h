@@ -14,20 +14,14 @@
 
 #include <vector>
 
-// 1234
 void combinations1(int n, int k, int index, std::vector<int> &curr, std::vector<std::vector<int>> &ans) {
-    printf("n=%d, k=%d, index=%d, curr=", n, k, index);
-    std::for_each(curr.begin(), curr.end(), [](int a) { printf("%d ", a); }); printf("\n");
     if (k <= 0) {
         ans.push_back(curr);
         return;
     }
-
-
     for (int i = index; i <= n; ++i) {
         curr.push_back(i);
-        combinations1(n, k - 1, index + 1, curr, ans);
-
+        combinations1(n, k - 1, i + 1, curr, ans);
         curr.pop_back();
     }
 }
