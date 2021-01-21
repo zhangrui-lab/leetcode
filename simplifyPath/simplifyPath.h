@@ -17,8 +17,9 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <stack>
 
-std::string simplifyPath(std::string path) {
+std::string simplifyPath1(std::string path) {
     std::vector<std::string> v;
     std::istringstream iss(path);
     std::string buf;
@@ -39,6 +40,33 @@ std::string simplifyPath(std::string path) {
         buf += s;
     }
     return buf;
+}
+
+std::string simplifyPath2(std::string path) {
+    std::stack<std::string> st;
+    std::string dir;
+    for (auto c : path) {
+        if (c == '/') {
+            if (dir == ".." && !st.empty()) {
+                st.pop();
+            } else if (dir != ".." && dir != "." && !dir.empty()) {
+                st.push(dir);
+            }
+            dir.clear();
+        } else {
+            dir += c;
+        }
+    }
+
+    std::string result;
+    while (!st.empty()) {
+        std::string s = st.top();
+        st.pop();
+        result = "/" + s + result;
+    }
+    if (result.empty())
+        result = "/";
+    return result;
 }
 
 #endif //ALGORITHM_SIMPLIFYPATH_H
