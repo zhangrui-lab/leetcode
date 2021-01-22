@@ -65,8 +65,8 @@ int searchInRotatedSortedArray(std::vector<int> &nums, int target) {
         mid = (lo + hi) >> 1;
         if (nums[mid] == target)
             return mid;
-        if (nums[0] <= nums[mid]) {                                 // 情况A
-            if (nums[0] <= target && target < nums[mid]) {          // A1
+        if (nums[lo] <= nums[mid]) {                                // 情况A
+            if (nums[lo] <= target && target < nums[mid]) {         // A1
                 hi = mid;
             } else {                                                // A2
                 lo = mid + 1;
