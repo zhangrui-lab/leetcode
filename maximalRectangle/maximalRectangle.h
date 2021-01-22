@@ -20,9 +20,8 @@ int maximalRectangle(std::vector<std::vector<char>> &matrix) {
     int largest = 0, n = matrix.size(), m = matrix[0].size();
     std::vector<int> prev(m, 0);
     for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
+        for (int j = 0; j < m; ++j)
             prev[j] = (matrix[i][j] - '0') == 0 ? 0 : prev[j] + (matrix[i][j] - '0');
-        }
         largest = std::max(largest, largestRectangleArea4(prev));
     }
     return largest;
