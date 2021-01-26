@@ -71,7 +71,6 @@ std::vector<int> inorderTraversal3(TreeNode *root) {
                 continue;
             }
             // 左子树已被访问时,访问根节点并进入右子树
-            root = predecessor->right;
             predecessor->right = nullptr;
             ans.push_back(root->val);
             root = root->right;
