@@ -53,4 +53,34 @@ std::vector<int> inorderTraversal2(TreeNode *root) {
     return ans;
 }
 
+std::vector<int> inorderTraversal3(TreeNode *root) {
+    auto findPredecessor = [](TreeNode *node) {
+        TreeNode *predecessor = node->left;
+        while (predecessor->right && predecessor->right != node) predecessor = predecessor->right;
+        return predecessor;
+    };
+    std::vector<int> ans;
+    while (root) {
+        // 存在左子树，执行访问，完成后回溯到根节点
+        if (root->left) {
+            TreeNode *predecessor = findPredecessor(root);
+            // 左子树未遍历，设置后向连接并深入左子树
+            if (predecessor->right != root) {
+                predecessor->right = root;
+                root = root->left;
+                continue;
+            }
+            // 左子树已被访问时,访问根节点并进入右子树
+            root = predecessor->right;
+            predecessor->right = nullptr;
+            ans.push_back(root->val);
+            root = root->right;
+        } else {    // 不存在左子树，访问当前节点并深入右子树
+            ans.push_back(root->val);
+            root = root->right;
+        }
+    }
+    return ans;
+}
+
 #endif //ALGORITHM_INORDERTRAVERSAL_H
