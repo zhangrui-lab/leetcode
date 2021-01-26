@@ -102,7 +102,8 @@ void recoverTree3(TreeNode *root) {
             } else {
                 verify(root);
                 pred = root;
-                root = predecessor->right = nullptr;
+                predecessor->right = nullptr;
+                root = root->right;
             }
         } else {
             verify(root);
