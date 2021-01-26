@@ -40,7 +40,7 @@ bool isSymmetricTree2(TreeNode *root) {
         TreeNode *node2 = queue.front();
         queue.pop();
         if (node1 == nullptr && node2 == nullptr)
-            return node1 == node2;
+            continue;
         if (node1 == nullptr || node2 == nullptr || node1->val != node2->val)
             return false;
         queue.push(node1->left);
