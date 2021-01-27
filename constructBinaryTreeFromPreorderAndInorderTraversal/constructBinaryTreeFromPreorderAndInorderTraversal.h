@@ -17,12 +17,14 @@
  *  中序遍历序列
  *      [ [左子树的中序遍历结果], 根节点, [右子树的中序遍历结果] ]
  *
- *
+ * 1. DFS
+ * 2. 迭代
  */
 
 #include "../common.h"
-#include <std::vector>
-#include <std::unordered_map>
+#include <stack>
+#include <vector>
+#include <unordered_map>
 
 TreeNode *buildTree(const std::vector<int> &preOrder, const std::vector<int> &inOrder, int pl, int pr,
                     int il, int ir, std::unordered_map<int, int> &index) {
@@ -33,7 +35,6 @@ TreeNode *buildTree(const std::vector<int> &preOrder, const std::vector<int> &in
     int pRoot = pl;
     // 在中序遍历中定位根节点
     int iRoot = index[preOrder[pRoot]];
-
     // 先把根节点建立出来
     TreeNode *root = new TreeNode(preOrder[pRoot]);
     // 得到左子树中的节点数目
@@ -54,6 +55,33 @@ TreeNode *buildTree(std::vector<int> &preOrder, std::vector<int> &inOrder) {
     for (int i = 0; i < n; ++i)
         index[inOrder[i]] = i;
     return buildTree(preOrder, inOrder, 0, n - 1, 0, n - 1, index);
+}
+
+TreeNode *buildTree2(std::vector<int> &preOrder, std::vector<int> &inOrder) {
+    if (!preOrder.size())
+        return nullptr;
+    TreeNode *root = new TreeNode(preOrder[0]);
+    std::stack<TreeNode *> stk;
+    stk.push(root);
+    int index = 0;
+    for (int i = 1; i < preOrder.size(); ++i) {
+        int val = preOrder[i];
+        TreeNode *node = stk.top();
+        // 当前节点为左子节点时
+        if (node->val != inOrder[index]) {
+            node->left = new TreeNode(val);
+            stk.push(node->left);
+        } else {    // 已到达最左侧节点时。寻找左子树的第一个非最左侧路径节点
+            while (!stk.empty() && stk.top()->val == inOrder[index]) {
+                node = stk.top();
+                stk.pop();
+                ++index;
+            }
+            node->right = new TreeNode(val);
+            stk.push(node->right);
+        }
+    }
+    return root;
 }
 
 #endif //ALGORITHM_CONSTRUCTBINARYTREEFROMpreOrderANDinOrderTRAVERSAL_H
