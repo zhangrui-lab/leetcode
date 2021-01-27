@@ -66,46 +66,24 @@ TreeNode *sortedListToBST2(ListNode *head) {
     return sortedListToBST2(head, nullptr);
 }
 
-//    int getLength(ListNode* head) {
-//        int ret = 0;
-//        for (; head != nullptr; ++ret, head = head->next);
-//        return ret;
-//    }
-//
-//    TreeNode* buildTree(ListNode*& head, int left, int right) {
-//        if (left > right) {
-//            return nullptr;
-//        }
-//        int mid = (left + right + 1) / 2;
-//        TreeNode* root = new TreeNode();
-//        root->left = buildTree(head, left, mid - 1);
-//        root->val = head->val;
-//        head = head->next;
-//        root->right = buildTree(head, mid + 1, right);
-//        return root;
-//    }
-//
-//    TreeNode* sortedListToBST(ListNode* head) {
-//        int length = getLength(head);
-//        return buildTree(head, 0, length - 1);
-//    }
-
-TreeNode *sortedListToBST3(ListNode *head, int lo, int hi) {
-    if (lo > hi)
+TreeNode *sortedListToBST3(ListNode *&head, int left, int right) {
+    if (left > right) {
         return nullptr;
-    int mid = (lo + hi + 1) / 2;
+    }
+    int mid = (left + right + 1) / 2;
     TreeNode *root = new TreeNode();
-    root->left = sortedListToBST3(head, lo, mid - 1);
+    root->left = sortedListToBST3(head, left, mid - 1);
     root->val = head->val;
     head = head->next;
-    root->right = sortedListToBST3(head, mid + 1, hi);
+    root->right = sortedListToBST3(head, mid + 1, right);
     return root;
 }
 
 TreeNode *sortedListToBST3(ListNode *head) {
-    int size = 0;
-    for (ListNode *tmp = head; tmp; tmp = tmp->next, ++size);
-    return sortedListToBST3(head, 0, size-1);
+    int length = 0;
+    for (ListNode *tmp = head; tmp; ++length, tmp = tmp->next);
+    return sortedListToBST3(head, 0, length - 1);
 }
+
 
 #endif //ALGORITHM_SORTEDLISTTOBST_H
