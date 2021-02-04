@@ -5,6 +5,17 @@
 #ifndef ALGORITHM_LADDERLENGTH_H
 #define ALGORITHM_LADDERLENGTH_H
 
+/*
+ * 127. 单词接龙
+ * 字典 wordList 中从单词 beginWord 和 endWord 的 转换序列 是一个按下述规格形成的序列：
+ *  序列中第一个单词是 beginWord 。
+ *  序列中最后一个单词是 endWord 。
+ *  每次转换只能改变一个字母。
+ *  转换过程中的中间单词必须是字典 wordList 中的单词。
+ *  给你两个单词 beginWord 和 endWord 和一个字典 wordList ，找到从 beginWord 到 endWord 的 最短转换序列 中的 单词数目 。如果不存在这样的转换序列，返回 0。
+ */
+
+
 std::vector<std::vector<int>> generateLadderLengthMatrix(std::string &beginWord, std::vector<std::string> &wordList) {
     int n = wordList.size() + 1;
     std::vector<std::vector<int>> matrix(n, std::vector<int>(n, 0));
@@ -29,15 +40,11 @@ int ladderLength(std::string beginWord, std::string endWord, std::vector<std::st
     int level = 0;
     if (std::find(wordList.cbegin(), wordList.cend(), endWord) == wordList.cend())
         return level;
-    enum Status { unknow, discovered, visited };
+    enum Status {
+        unknow, discovered, visited
+    };
     int n = wordList.size() + 1;
     std::vector<std::vector<int>> matrix = generateLadderLengthMatrix(beginWord, wordList);
-    for (int i = 0; i < matrix.size(); ++i) {
-        for (int j = 0; j < matrix[i].size(); ++j) {
-            printf("%d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
     std::vector<Status> status(n, unknow);
     status[0] = visited;
     std::queue<int> queue;
@@ -47,15 +54,12 @@ int ladderLength(std::string beginWord, std::string endWord, std::vector<std::st
         int size = queue.size();
         while (size--) {
             int node = queue.front();
-            printf("level: %d, node: %d\n", level, node);
             queue.pop();
             if (wordList[node - 1] == endWord) {
-                printf("wordList[%d] == %s\n", node, endWord.c_str());
                 return level;
             }
             for (int i = 1; i < n; ++i) {
                 if (status[i] == unknow && matrix[node][i]) {
-                    printf("node %d discovered %d\n", node, i);
                     queue.push(i);
                     status[i] = visited;
                 }
