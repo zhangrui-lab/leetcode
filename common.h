@@ -5,9 +5,12 @@
 #ifndef ALGORITHM_COMMON_H
 #define ALGORITHM_COMMON_H
 
+#include <vector>
+
 struct ListNode {
     int val;
     ListNode *next;
+
     ListNode(int x = 0, ListNode *n = nullptr) : val(x), next(n) {}
 };
 
@@ -15,17 +18,38 @@ struct TreeNode {
     int val;
     TreeNode *left;
     TreeNode *right;
+
     TreeNode(int x = 0, TreeNode *left = nullptr, TreeNode *right = nullptr) : val(x), left(left), right(right) {}
 };
 
 class Node {
 public:
     int val;
-    Node* left;
-    Node* right;
-    Node* next;
-    Node(int _val = 0, Node* _left = nullptr, Node* _right = nullptr, Node* _next = nullptr)
+    Node *left;
+    Node *right;
+    Node *next;
+
+    Node(int _val = 0, Node *_left = nullptr, Node *_right = nullptr, Node *_next = nullptr)
             : val(_val), left(_left), right(_right), next(_next) {}
+};
+
+
+class GNode {
+public:
+    int val;
+    std::vector<GNode *> neighbors;
+    GNode() {
+        val = 0;
+        neighbors = std::vector<GNode *>();
+    }
+    GNode(int _val) {
+        val = _val;
+        neighbors = std::vector<GNode *>();
+    }
+    GNode(int _val, std::vector<GNode *> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
 };
 
 #endif //ALGORITHM_COMMON_H
