@@ -38,18 +38,17 @@ class GNode {
 public:
     int val;
     std::vector<GNode *> neighbors;
-    GNode() {
-        val = 0;
-        neighbors = std::vector<GNode *>();
-    }
-    GNode(int _val) {
-        val = _val;
-        neighbors = std::vector<GNode *>();
-    }
-    GNode(int _val, std::vector<GNode *> _neighbors) {
-        val = _val;
-        neighbors = _neighbors;
-    }
+
+    GNode(int _val = 0, std::vector<GNode *> _neighbors = std::vector<GNode *>()) : val(_val), neighbors(_neighbors) {}
+};
+
+class RNode {
+public:
+    int val;
+    RNode *next;
+    RNode *random;
+
+    RNode(int _val) : val(_val), next(nullptr), random(nullptr) {}
 };
 
 #endif //ALGORITHM_COMMON_H
