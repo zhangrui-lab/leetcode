@@ -2,8 +2,8 @@
 // Created by 张锐 on 2021/2/4.
 //
 
-#ifndef ALGORITHM_PALINDROMEPARTITIONING_H
-#define ALGORITHM_PALINDROMEPARTITIONING_H
+#ifndef ALGORITHM_palindromePartitioning1_H
+#define ALGORITHM_palindromePartitioning1_H
 
 /*
  * 131. 分割回文串
@@ -17,13 +17,23 @@
  *  ]
  * 1. 蛮力策略
  *  获取所有子串分割，若当前分割所得的所有子串为回文串则加入结果集中。
+ *  
+ * 2. DFS回溯策略
+ *  递归执行字符串的分割，遇到非回文子串时回溯。遇到递归基将当前分割加入结果集中。
  */
 
 #include <vector>
 #include <string>
-#include "../isPalindrome/isPalindrome.h"
 
-std::vector<std::vector<std::string>> palindromePartitioning(std::string s) {
+bool isPalindrome(std::string s) {
+    std::string t;
+    for (char ch: s)
+        t += tolower(ch);
+    std::string r(t.rbegin(), t.rend());
+    return t == r;
+}
+
+std::vector<std::vector<std::string>> palindromePartitioning1(std::string s) {
     // max: 100; 00 ~ 11
     // abc
     // 00: abc
@@ -38,22 +48,55 @@ std::vector<std::vector<std::string>> palindromePartitioning(std::string s) {
         std::vector<std::string> curr;
         std::string tmp;
         // 第 j 位为1表示字符串在 s[j+1] 处发生切割
-        for (int j = 0; j < l; ++j) {
+        int j;
+        for (j = 0; j < l; ++j) {
             if (j - 1 >= 0 && i & 1 << (j - 1)) {   // 分割
+                if (!isPalindrome(tmp)) {
+                    break;
+                }
                 curr.push_back(tmp);
                 tmp = std::string(1, s[j]);
             } else {
                 tmp.append(1, s[j]);
             }
-            if (j == l - 1)
+            if (j == l - 1) {
+                if (!isPalindrome(tmp))
+                    break;
                 curr.push_back(tmp);
+            }
         }
-        int k = 0;
-        for (; k < curr.size() && isPalindrome2(curr[k]); ++k);
-        if (k == curr.size())
+        if (j == l)
             ans.push_back(curr);
     }
     return ans;
 }
 
-#endif //ALGORITHM_PALINDROMEPARTITIONING_H
+void palindromePartitioning2(int index, std::string &s, std::vector<std::string> &curr,
+                             std::vector<std::vector<std::string>> &ans) {
+    // 递归基础: 分割完成
+    if (index == s.size()) {
+        if (!curr.empty())
+            ans.push_back(curr);
+        return;
+    }
+    for (int i = index; i < s.size(); ++i) {
+        std::string tmp = s.substr(index, i - index + 1);
+        if (isPalindrome(tmp)) {
+            curr.push_back(tmp);
+            palindromePartitioning2(i + 1, s, curr, ans);
+            curr.pop_back();
+        }
+    }
+}
+
+std::vector<std::vector<std::string>> palindromePartitioning2(std::string s) {
+    if (s.empty())
+        return {{}};
+    std::vector<std::vector<std::string>> ans;
+    std::vector<std::string> curr;
+    std::string tmp(1, s[0]);
+    palindromePartitioning2(0, s, curr, ans);
+    return ans;
+}
+
+#endif //ALGORITHM_palindromePartitioning1_H
