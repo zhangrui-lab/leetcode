@@ -6,7 +6,7 @@
 #define ALGORITHM_PERMUTATIONS_H
 
 /*
- * 全排列
+ * 46. 全排列
  *
  * 1. 不断获取下一排列，直至元素排列和当前一致
  * 2. dfs遍历所有情况
