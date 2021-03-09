@@ -10,7 +10,8 @@
  *  给你二叉树的根节点 root ，返回它节点值的 前序 遍历。
  *
  * 1. 递归
- * 2. stack实现 todo
+ * 2. stack实现
+ * 3. 充分利用空闲指针
  */
 
 #include <stack>
@@ -41,6 +42,13 @@ std::vector<int> preorderTraversal1(TreeNode *root) {
             node = node->left;
         }
     };
+    visitAndGoLeft(root);
+    while (!stk.empty()) {
+        root = stk.top();
+        stk.pop();
+        visitAndGoLeft(root);
+    }
+    return ans;
 }
 
 #endif //ALGORITHM_PREORDERTRAVERSAL_H
