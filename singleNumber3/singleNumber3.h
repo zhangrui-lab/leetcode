@@ -53,17 +53,19 @@ std::vector<int> singleNumber1(std::vector<int> &nums) {
 }
 
 std::vector<int> singleNumber2(std::vector<int> &nums) {
-    int ret = 0, g1 = 0, g2 = 0;
-    for (auto num: nums)
-        ret ^= num;
-    ret &= -ret;
-    for (auto num : nums) {
-        if (num & (1 << ret))
-            g1 ^= num;
+    int ret = 0;
+    for (int n : nums)
+        ret ^= n;
+    int div = 1;
+    while ((div & ret) == 0)
+        div <<= 1;
+    int a = 0, b = 0;
+    for (int n : nums)
+        if (div & n)
+            a ^= n;
         else
-            g2 ^= num;
-    }
-    return {g1, g2};
+            b ^= n;
+    return std::vector<int>{a, b};
 }
 
 #endif //ALGORITHM_SINGLENUMBER1_H
