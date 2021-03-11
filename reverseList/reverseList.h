@@ -10,8 +10,8 @@
  *  定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
  *
  * 1. stack
- * 2. 递归    // todo
- * 3. 双指针
+ * 2. 递归
+ * 3. 迭代
  */
 
 #include "../common.h"
@@ -36,12 +36,37 @@ ListNode *reverseList(ListNode *head) {
     return head;
 }
 
-ListNode *reverseList1(ListNode *prev, ListNode *curr) {
-
+ListNode *reverseList1(ListNode *head, ListNode *&newHead) {
+    if (!head)
+        return nullptr;
+    auto next = reverseList1(head->next, newHead);
+    if (next)
+        next->next = head;
+    else
+        newHead = head;
+    head->next = nullptr;
+    return head;
 }
 
 ListNode *reverseList1(ListNode *head) {
+    ListNode *newHead = nullptr;
+    reverseList1(head, newHead);
+    return newHead;
+}
 
+ListNode *reverseList2(ListNode *head) {
+    if (!head || !head->next)
+        return head;
+    ListNode *header = new ListNode(), *prev = head, *curr = head->next, *tail = head->next->next;
+    while (curr) {
+        header->next = curr;
+        curr->next = prev;
+        prev = curr;
+        curr = tail;
+        tail = tail ? tail->next : tail;
+    }
+    head->next = nullptr;
+    return header->next;
 }
 
 
