@@ -20,11 +20,25 @@
  *  如果李拿走前 3 颗，那么剩下的是 [4,5]，亚历克斯拿走后 5 颗赢得 10 分。
  *  如果李拿走后 5 颗，那么剩下的是 [3,4]，亚历克斯拿走后 4 颗赢得 9 分。
  *  这表明，取前 5 颗石子对亚历克斯来说是一个胜利的举动，所以我们返回 true 。
+ *
+ * 1. 动态规划
+ *  dp[i][j] 表示当剩下的石子堆为下标 i 到下标 j 时，当前玩家与另一个玩家的石子数量之差的最大值。
+ *  dp[i][j] = std::max(piles[i] - dp[i-1][j], piles[j] - dp[i][j-1]);
  */
 
 #include <vector>
 
 bool stoneGame(std::vector<int> &piles) {
+    int n = piles.size();
+    std::vector<std::vector<int>> dp(n, std::vector<int>(n));
+    for (int i = 0; i < n; ++i)
+        dp[i][i] = piles[i];
+    for (int i = n - 2; i >= 0; i--) {
+        for (int j = i + 1; j < n; j++) {
+            dp[i][j] = std::max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);
+        }
+    }
+    return dp[0][n - 1] >= 0;
 }
 
 #endif //ALGORITHM_STONEGAME_H
