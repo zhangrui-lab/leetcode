@@ -29,9 +29,16 @@
  * 2. 动态规划
  *  方法一使用递归，存在大量重复计算，因此时间复杂度很高。由于存在重复子问题，因此可以使用动态规划降低时间复杂度。
  *  定义二维数组 dp，其行数和列数都等于数组的长度，dp[i][j] 表示当数组剩下的部分为下标 i 到下标 j 时，当前玩家与另一个玩家的分数之差的最大值，注意当前玩家不一定是先手。
+ * 3. 极小化极大化(Minimax):
+ *  1. A，B轮流进行某种决策，且决策间是相互竞争关系。假定A先进行决策。
+ *  2. A，B都符合理性人假设。更确切地说，每一次决策都会选出当前最优的方案（而不会在意已经做过的决策）。
+ *  1和2共同反映了极小化极大（Minimax）的定义，即此消彼长 -- 第一轮A决策极大化A自己的收益，同时间接极小化了B的收益；第二轮B则相反，如此往复；
+ *  2间接确保了最优子结构的存在。仔细思考会发现这里面有一件事是重复进行的，那就是决策本身 -- 决策者只有两个可能的决策，并且他会选择让自己优势最大化的那个。
  */
 
 #include <vector>
+#include <map>
+#include <utility>
 
 int predictTheWinner(std::vector<int> &nums, int start, int end, int turn) {
     if (start == end)
@@ -45,7 +52,7 @@ bool predictTheWinner(std::vector<int> &nums) {
     return predictTheWinner(nums, 0, nums.size() - 1, 1) >= 0;
 }
 
-bool PredictTheWinner2(std::vector<int> &nums) {
+bool predictTheWinner2(std::vector<int> &nums) {
     int length = nums.size();
     auto dp = std::vector<int>(length);
     for (int i = 0; i < length; i++)
@@ -54,6 +61,34 @@ bool PredictTheWinner2(std::vector<int> &nums) {
         for (int j = i + 1; j < length; j++)
             dp[j] = std::max(nums[i] - dp[j], nums[j] - dp[j - 1]);
     return dp[length - 1] >= 0;
+}
+
+int predictTheWinner3(std::vector<int> &nums, int start, int end) {
+    if (start == end)
+        return nums[start];
+    int planA = nums[start] - predictTheWinner3(nums, start + 1, end);
+    int planB = nums[end] - predictTheWinner3(nums, start, end - 1);
+    return std::max(planA, planB);
+}
+
+bool predictTheWinner3(std::vector<int> &nums) {
+    return predictTheWinner3(nums, 0, nums.size() - 1) >= 0;
+}
+
+int predictTheWinner4(std::vector<int> &nums, int start, int end, std::map<std::pair<int, int>, int> &memo) {
+    if (start == end)
+        return nums[start];
+    if (memo.count({start, end}))
+        return memo[{start, end}];
+    int planA = nums[start] - predictTheWinner3(nums, start + 1, end);
+    int planB = nums[end] - predictTheWinner3(nums, start, end - 1);
+    memo[{start, end}] = std::max(planA, planB);
+    return memo[{start, end}];
+}
+
+bool predictTheWinner4(std::vector<int> &nums) {
+    std::map<std::pair<int, int>, int> memo;
+    return predictTheWinner4(nums, 0, nums.size() - 1, memo) >= 0;
 }
 
 #endif //ALGORITHM_PREDICTTHEWINNER_H
