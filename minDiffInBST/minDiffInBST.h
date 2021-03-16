@@ -16,8 +16,21 @@
 #include "../common.h"
 #include "../getMinimumDifference/getMinimumDifference.h"   // 题解相同
 
-int minDiffInBST(TreeNode *root) {
+void minDiffInBST(TreeNode *root, TreeNode *&prev, int &min) {
+    if (!root)
+        return;
+    minDiffInBST(root->left, prev, min);
+    if (prev)
+        min = std::min(min, std::abs(prev->val - root->val));
+    prev = root;
+    minDiffInBST(root->right, prev, min);
+}
 
+int minDiffInBST(TreeNode *root) {
+    int min = INT_MAX;
+    TreeNode *prev = nullptr;
+    minDiffInBST(root, prev, min);
+    return min;
 }
 
 #endif //ALGORITHM_MINDIFFINBST_H
