@@ -14,10 +14,15 @@
  *
  * 1. 层序遍历 // 时间超出限制
  *  从 0 开始对节点进行编号。对于一个完全二叉树节点i, parent(i)=(i-1)/2, lc(i)=2i+1, rc(i)=2i+2;
+ *
+ * 2. DFS
+ * 2. BFS
  */
 
 #include <string>
 #include <queue>
+#include <list>
+#include <sstream>
 #include <unordered_set>
 #include "../common.h"
 
@@ -89,5 +94,111 @@ public:
         return data.empty() ? nullptr : nodes[0];
     }
 };
+
+class SerializeBinaryTree1 {
+
+public:
+    // Encodes a tree to a single string.
+    static std::string serialize(TreeNode *root) {
+        if (root == NULL)
+            return "X,";
+        std::string leftNode = serialize(root->left);
+        std::string rightNode = serialize(root->right);
+        return std::to_string(root->val) + "," + leftNode + rightNode;
+    }
+
+    // Decodes your encoded data to tree.
+    static TreeNode *deserialize(std::string data) {
+        std::list<std::string> list = split(data, ',');
+        TreeNode *res = buildTree(list);
+        return res;
+    }
+
+    static TreeNode *buildTree(std::list<std::string> &strList) {
+        std::string strtmp = strList.front();
+        strList.pop_front();
+        if (strtmp == "X")
+            return NULL;
+        TreeNode *node = new TreeNode(std::stoi(strtmp));
+        node->left = buildTree(strList);
+        node->right = buildTree(strList);
+        return node;
+    }
+
+    static std::list<std::string> split(std::string &str, char c) {
+        std::list<std::string> res;
+        for (int lastpos = -1, pos = 0; pos < str.length(); pos++) {
+            if (str[pos] == c) {
+                res.push_back(str.substr(++lastpos, pos - lastpos));
+                lastpos = pos;
+            }
+        }
+        return res;
+    }
+};
+
+class SerializeBinaryTree2 {
+public:
+
+    // Encodes a tree to a single string.
+    std::string serialize(TreeNode* root) {
+        if (!root) {
+            return "";
+        }
+
+        std::string res;
+        std::queue<TreeNode*> q{{root}};
+        while (!q.empty()) {
+            auto cur = q.front(); q.pop();
+            if (cur) {
+                res += std::to_string(cur->val) + ",";
+                q.push(cur->left); // Note: this has no condition check cur->left null or not
+                q.push(cur->right); // Note: this has no condition check cur->right null or not
+            } else {
+                res += "#,";
+            }
+        }
+
+        return res;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(std::string data) {
+        if (data.empty()) {
+            return nullptr;
+        }
+
+        std::stringstream ss(data);
+        std::string str;
+        getline(ss, str, ',');
+        TreeNode* root = new TreeNode(stoi(str));
+        std::queue<TreeNode*> q{{root}};
+        while (!q.empty()) {
+            auto cur = q.front(); q.pop();
+            if (!getline(ss, str, ',')) {
+                break; // run of data
+            }
+            if (str != "#") {
+                cur->left = new TreeNode(stoi(str));
+                q.push(cur->left);
+            } else {
+                cur->left = nullptr;
+            }
+
+            if (!getline(ss, str, ',')) {
+                break; // run of data
+            }
+            if (str != "#") {
+                cur->right = new TreeNode(stoi(str));
+                q.push(cur->right);
+            } else {
+                cur->right = nullptr;
+            }
+        }
+
+        return root;
+    }
+};
+
 
 #endif //ALGORITHM_SERIALIZEBINARYTREE_H
