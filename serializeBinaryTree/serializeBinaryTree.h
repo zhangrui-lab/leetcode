@@ -12,7 +12,7 @@
  *
  * 提示: 输入输出格式与 LeetCode 目前使用的方式一致，详情请参阅 LeetCode 序列化二叉树的格式。你并非必须采取这种方式，你也可以采用其他的方法解决这个问题。
  *
- * 1. 层序遍历
+ * 1. 层序遍历 // 时间超出限制
  *  从 0 开始对节点进行编号。对于一个完全二叉树节点i, parent(i)=(i-1)/2, lc(i)=2i+1, rc(i)=2i+2;
  */
 
@@ -27,7 +27,7 @@ public:
         if (!root)
             return "";
         int pos = 0;
-        std::vector<int> serialize;
+        std::string ans;
         std::unordered_set<int> nullPos;
         std::queue<TreeNode *> queue;
         queue.push(root);
@@ -35,12 +35,12 @@ public:
             if (nullPos.count(pos)) {
                 nullPos.insert(2 * pos + 1);
                 nullPos.insert(2 * pos + 2);
-                serialize.push_back(INT_MIN);
+                ans += ",";
                 pos++;
                 continue;
             }
             root = queue.front();
-            serialize.push_back(root->val);
+            ans += std::to_string(root->val) + ",";
             queue.pop();
             if (root->left)
                 queue.push(root->left);
@@ -52,20 +52,45 @@ public:
                 nullPos.insert(2 * pos + 2);
             pos++;
         }
-        return "";  // todo
+        if (ans.size() - 1 >= 0 && ans[ans.size() - 1])
+            ans.pop_back();
+        return ans;
     }
 
     TreeNode *deserialize(std::string data) {
+        auto parent = [](int i) { return i == 0 ? -1 : (i - 1) / 2; };
+        auto lc = [](int p) { return 2 * p + 1; };
+        int nodeNum = data.empty() ? 0 : 1;
+        for (auto c:data)
+            nodeNum += c == ',';
+        std::vector<TreeNode *> nodes(nodeNum, nullptr);
+        for (int i = 0, pos = 0, cur = INT_MIN, sym = 1; i < data.size(); ++i) {
+            if (data[i] == '-') {
+                printf(" is -");
+                sym = -1;
+            } else if (data[i] != ',') {
+                printf(" is num");
+                cur = cur == INT_MIN ? data[i] - '0' : cur * 10 + (data[i] - '0');
+            } else {
+                printf(" is , ");
+                if (cur != INT_MIN) {
+                    nodes[pos] = new TreeNode(cur * sym);
+                }
+                cur = INT_MIN;
+                sym = 1;
+                pos++;
+            }
+            if (i == data.size() - 1 && cur != INT_MIN)
+                nodes[pos++] = new TreeNode(cur * sym);
+        }
+        for (int i = 1; i < nodeNum; ++i) {
+            int p = parent(i), l = lc(p);
+            if (nodes[i] && nodes[p]) {
+                (l == i ? nodes[p]->left : nodes[p]->right) = nodes[i];
+            }
+        }
+        return data.empty() ? nullptr : nodes[0];
     }
-
-private:
 };
 
 #endif //ALGORITHM_SERIALIZEBINARYTREE_H
-
-
-//    1
-//   / \
-//  2   3
-//     / \
-//    4   5
