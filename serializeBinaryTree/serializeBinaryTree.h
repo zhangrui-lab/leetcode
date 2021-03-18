@@ -66,13 +66,10 @@ public:
         std::vector<TreeNode *> nodes(nodeNum, nullptr);
         for (int i = 0, pos = 0, cur = INT_MIN, sym = 1; i < data.size(); ++i) {
             if (data[i] == '-') {
-                printf(" is -");
                 sym = -1;
             } else if (data[i] != ',') {
-                printf(" is num");
                 cur = cur == INT_MIN ? data[i] - '0' : cur * 10 + (data[i] - '0');
             } else {
-                printf(" is , ");
                 if (cur != INT_MIN) {
                     nodes[pos] = new TreeNode(cur * sym);
                 }
