@@ -16,28 +16,27 @@
  *  输出：3
  *  解释：最长的表现良好时间段是 [9,9,6]。
  *
- * 1. 和大于0得最大连续子数组问题: 将每天转化为 1(劳累的一天)/-1(不劳累的天数)。 获取和大于0得最大连续子数组
- *  9,9,6,0,6,6,9
- *  1,1,-1,-1,-1,-1,1  // todo
+ * 和大于0得最大连续子数组问题: 将每天转化为 1(劳累的一天)/-1(不劳累的天数)。 获取和大于0得最大连续子数组
+ *
+ * 1. 暴力求解 // todo
+ *
+ *
  */
 
 #include <vector>
 
-int longestWPI1(std::vector<int> &hours) {
-}
+//   1 1 -1 -1 -1 -1 1
+// 0 1 2  1 0 -1 -2 -1
 
 int longestWPI(std::vector<int> &hours) {
-    int res = 0, len = hours.size();
-    std::vector<int> dp(len + 2, INT_MAX);
-    for (int i = 0, j = 0; i < len; ++i) {
-        j += (hours[i] > 8 ? 1 : -1);
-        if (j > 0) res = i + 1;
-        else {
-            res = std::max(res, i - dp[-j + 1]);
-            dp[-j] = std::min(dp[-j], i);
+    int n = hours.size();
+    std::vector<int> pSum(n, 0);
+    for (int i = 0; i < n; ++i)
+        pSum[i] = i == 0 ? hours[i] : pSum[i] + hours[i];
+    for (int i = 0; i < n; ++i) {
+        for (int j = i; j < n; ++j) {
         }
     }
-    return res;
 }
 
 
