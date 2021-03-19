@@ -26,10 +26,13 @@
  *      [lo, r) 中进行 k选取
  *   else k > r:
  *      [r+1, hi) 中进行 k-r 选取
- 复杂度： 尽管内循环仅需O(hi - lo + 1)时间，但很遗憾，外循环的次数却无法有效控制。与快速排序算法一样，最坏情况下外循环需执行O(n)次，总体运行时间为O(n^2)。
+ * 复杂度： 尽管内循环仅需O(hi - lo + 1)时间，但很遗憾，外循环的次数却无法有效控制。与快速排序算法一样，最坏情况下外循环需执行O(n)次，总体运行时间为O(n^2)。
+ *
+ * 3. 基于堆的算法
  */
 
 #include <vector>
+#include <queue>
 
 std::vector<int> smallestK(std::vector<int> &arr, int k) {
     std::sort(arr.begin(), arr.end());
@@ -63,6 +66,26 @@ std::vector<int> smallestK2(std::vector<int> &arr, int k) {
             lo = r + 1;
         }
     }
+}
+
+std::vector<int> smallestK3(std::vector<int> &arr, int k) {
+    if (k == 0)
+        return {};
+    std::priority_queue<int> queue;
+    for (int i = 0; i < k; ++i)
+        queue.push(arr[i]);
+    for (int i = k; i < arr.size(); ++i) {
+        if (arr[i] < queue.top()) {
+            queue.pop();
+            queue.push(arr[i]);
+        }
+    }
+    std::vector<int> ans;
+    while (!queue.empty()) {
+        ans.push_back(queue.top());
+        queue.pop();
+    }
+    return ans;
 }
 
 #endif //ALGORITHM_SMALLESTK_H
