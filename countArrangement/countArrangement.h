@@ -16,8 +16,8 @@
  *  蛮力算法中可优化的部分：
  *      1. 下一序列的构建
  *      2. 下一序列是否为优美排列的判断: 只对构建下一排列过程中改变的部分做验证
- *
- *
+ * 2. DFS
+ * 3. DFS优化
  */
 
 #include <vector>
@@ -62,6 +62,25 @@ int countArrangement2(int n) {
     for (int i = 1; i <= n; i++)
         nums[i - 1] = i;
     permute(nums, 0, count);
+    return count;
+}
+
+void calculate(int n, int pos, std::vector<bool> &visited, int &count) {
+    if (pos > n)
+        count++;
+    for (int i = 1; i <= n; i++) {
+        if (!visited[i] && (pos % i == 0 || i % pos == 0)) {
+            visited[i] = true;
+            calculate(n, pos + 1, visited, count);
+            visited[i] = false;
+        }
+    }
+}
+
+int countArrangement3(int n) {
+    int count = 0;
+    std::vector<bool> visited(n + 1, false);
+    calculate(n, 1, visited, count);
     return count;
 }
 
