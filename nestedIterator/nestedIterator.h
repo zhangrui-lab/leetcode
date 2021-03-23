@@ -45,6 +45,7 @@ public:
     }
 };
 
+/*
 class NestedIterator1 {
 private:
     // pair 中存储的是列表的当前遍历位置，以及一个尾后迭代器用于判断是否遍历到了列表末尾
@@ -77,6 +78,7 @@ public:
         return false;
     }
 };
+*/
 
 
 #endif //ALGORITHM_NESTEDITERATOR_H
