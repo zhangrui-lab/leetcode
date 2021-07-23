@@ -22,7 +22,7 @@
 
 using namespace std;
 
-int findMin(vector<int> &nums) {
+int minValueInRotationSortArray(vector<int> &nums) {
     int minVal = nums[0];
     for (int i = 1; i < nums.size(); ++i) {
         minVal = min(minVal, nums[i]);
@@ -30,7 +30,7 @@ int findMin(vector<int> &nums) {
     return minVal;
 }
 
-int findMin2(vector<int> &nums) {
+int minValueInRotationSortArray2(vector<int> &nums) {
     int l = 0, r = nums.size() - 1;
     while (l < r) {
         int mid = (l + r) >> 1;
@@ -46,7 +46,7 @@ int findMin2(vector<int> &nums) {
     return nums[l];
 }
 
-int findMin3(vector<int> &nums) {
+int minValueInRotationSortArray3(vector<int> &nums) {
     int low = 0;
     int high = nums.size() - 1;
     while (low < high) {
