@@ -38,5 +38,4 @@ int minValueInRotationSortArray(vector<int> &nums) {
     return nums[low];
 }
 
-
 #endif //ALGORITHM_MINVALUEINROTATIONSORTARRAY_H
