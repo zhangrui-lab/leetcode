@@ -69,5 +69,16 @@ ListNode *reverseList2(ListNode *head) {
     return header->next;
 }
 
+ListNode *reverseList3(ListNode *head) {
+    ListNode *prev = nullptr, *curr = head, *tmp;
+    while (curr) {
+        tmp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = tmp;
+    }
+    return
+}
+
 
 #endif //ALGORITHM_REVERSELIST_H
