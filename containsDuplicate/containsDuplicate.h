@@ -21,7 +21,6 @@
  * 求解策略:
  *  1. set,map
  *  2. sort
- *  3.
  */
 
 #include <vector>
