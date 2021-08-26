@@ -12,12 +12,13 @@
  *
  * 求解策略:
  *  1. 图遍历: dfs, bfs, stack替换迭代等...
- *  2. 二分查找策略:
+ *  2. 二分查找策略+位结构:
  *      a. 完整树的middle节点: root右子节点的最左侧节点.
  *      b. 查看树的middle节点是否高度为树高, 若为树高, 则在其右子树进行迭代, 若不为树高, 则在其左子树中进行迭代.
  */
 
 #include "../common.h"
+#include <cmath>
 #include <queue>
 
 using namespace std;
@@ -55,19 +56,40 @@ int countNodes2(TreeNode *root) {
     return count;
 }
 
-//static int computeHeight(TreeNode *root) {
-//    static
-//    computeHeight(root->left);
-//};
-//
-//int countNodes3(TreeNode *root) {
-//    int height = 0;
-//    auto computeHeight = [&height](TreeNode *root) {
-//        if (!root) return;
-//        height++;
-//        return computeHeight(root->left);
-//    };
-//
-//}
+bool exists(TreeNode *root, int level, int k) {
+    int bits = 1 << (level - 1);
+    TreeNode *node = root;
+    while (node != nullptr && bits > 0) {
+        if (!(bits & k)) {
+            node = node->left;
+        } else {
+            node = node->right;
+        }
+        bits >>= 1;
+    }
+    return node != nullptr;
+}
+
+int countNodes3(TreeNode *root) {
+    if (root == nullptr) {
+        return 0;
+    }
+    int level = 0;
+    TreeNode *node = root;
+    while (node->left != nullptr) {
+        level++;
+        node = node->left;
+    }
+    int low = 1 << level, high = (1 << (level + 1)) - 1;
+    while (low < high) {
+        int mid = (high - low + 1) / 2 + low;
+        if (exists(root, level, mid)) {
+            low = mid;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return low;
+}
 
 #endif //ALGORITHM_COUNTNODES_H
