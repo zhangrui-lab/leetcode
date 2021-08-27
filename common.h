@@ -65,4 +65,22 @@ public:
     const std::vector<NestedInteger> &getList() const;
 };
 
+// N 叉树节点
+class NTreeNode {
+public:
+    int val;
+    std::vector<NTreeNode *> children;
+
+    NTreeNode() {}
+
+    NTreeNode(int _val) {
+        val = _val;
+    }
+
+    NTreeNode(int _val, std::vector<NTreeNode *> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+
 #endif //ALGORITHM_COMMON_H
