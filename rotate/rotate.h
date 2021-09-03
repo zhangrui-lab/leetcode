@@ -14,6 +14,9 @@
  * 求解策略:
  *  1. 额外空间转存
  *  2. 库函数
+ *  3. ..
+ *  4. 环状替换
+ *  5. 数组翻转
  */
 
 #include <vector>
@@ -49,6 +52,28 @@ void rotate3(vector<int> &nums, int k) {
             printf("i:%d, mid:%d, j:%d\n", i, mid, j);
         }
     }
+}
+
+void rotate4(vector<int> &nums, int k) {
+    int n = nums.size();
+    k = k % n;
+    int count = gcd(k, n);
+    for (int start = 0; start < count; ++start) {
+        int current = start;
+        int prev = nums[start];
+        do {
+            int next = (current + k) % n;
+            swap(nums[next], prev);
+            current = next;
+        } while (start != current);
+    }
+}
+
+void rotate5(vector<int> &nums, int k) {
+    k %= nums.size();
+    reverse(nums.begin(), nums.end());
+    reverse(nums.begin(), nums.begin() + k);
+    reverse(nums.begin() + k, nums.end());
 }
 
 #endif //ALGORITHM_ROTATE_H
